@@ -66,13 +66,18 @@ describe('DogStatsD', () => {
 
     it('should include the tags if provided', done => {
       serverShouldReceive('latency:200|ms|#app:web,feature:on', done)
-      client.timing('latency', 200, ['app:web', 'feature:on'])
+      client.timing('latency', 200, {
+        tags: ['app:web', 'feature:on'],
+      })
     })
 
     it('should include the sample rate and sample if provided', done => {
       serverShouldReceiveMultiple('latency:200|ms|@0.9|#app:web,feature:on', 2, done)
       times(100, () => {
-        client.timing('latency', 200, 0.9, ['app:web', 'feature:on'])
+        client.timing('latency', 200, {
+          sampleRate: 0.9,
+          tags: ['app:web', 'feature:on'],
+        })
       })
     })
   })
@@ -85,13 +90,18 @@ describe('DogStatsD', () => {
 
     it('should include the tags if provided', done => {
       serverShouldReceive('requests:1|c|#app:web,feature:on', done)
-      client.increment('requests', ['app:web', 'feature:on'])
+      client.increment('requests', 1, {
+        tags: ['app:web', 'feature:on'],
+      })
     })
 
     it('should include the sample rate and sample if provided', done => {
       serverShouldReceiveMultiple('requests:1|c|@0.9|#app:web,feature:on', 2, done)
       times(100, () => {
-        client.increment('requests', 0.9, ['app:web', 'feature:on'])
+        client.increment('requests', 1, {
+          sampleRate: 0.9,
+          tags: ['app:web', 'feature:on']
+        })
       })
     })
   })
@@ -104,13 +114,18 @@ describe('DogStatsD', () => {
 
     it('should include the tags if provided', done => {
       serverShouldReceive('requests:-1|c|#app:web,feature:on', done)
-      client.decrement('requests', ['app:web', 'feature:on'])
+      client.decrement('requests', 1, {
+        tags: ['app:web', 'feature:on']
+      })
     })
 
     it('should include the sample rate and sample if provided', done => {
       serverShouldReceiveMultiple('requests:-1|c|@0.9|#app:web,feature:on', 2, done)
       times(100, () => {
-        client.decrement('requests', 0.9, ['app:web', 'feature:on'])
+        client.decrement('requests', 1, {
+          sampleRate: 0.9,
+          tags: ['app:web', 'feature:on'],
+        })
       })
     })
   })
@@ -123,13 +138,18 @@ describe('DogStatsD', () => {
 
     it('should include the tags if provided', done => {
       serverShouldReceive('usable_memory:64|g|#app:web,feature:on', done)
-      client.gauge('usable_memory', 64, ['app:web', 'feature:on'])
+      client.gauge('usable_memory', 64, {
+        tags: ['app:web', 'feature:on']
+      })
     })
 
     it('should include the sample rate and sample if provided', done => {
       serverShouldReceiveMultiple('usable_memory:64|g|@0.9|#app:web,feature:on', 2, done)
       times(100, () => {
-        client.gauge('usable_memory', 64, 0.9, ['app:web', 'feature:on'])
+        client.gauge('usable_memory', 64, {
+          sampleRate: 0.9,
+          tags: ['app:web', 'feature:on'],
+        })
       })
     })
   })
@@ -142,13 +162,18 @@ describe('DogStatsD', () => {
 
     it('should include the tags if provided', done => {
       serverShouldReceive('query_time:777|h|#app:web,feature:on', done)
-      client.histogram('query_time', 777, ['app:web', 'feature:on'])
+      client.histogram('query_time', 777, {
+        tags: ['app:web', 'feature:on'],
+      })
     })
 
     it('should include the sample rate and sample if provided', done => {
       serverShouldReceiveMultiple('query_time:777|h|@0.9|#app:web,feature:on', 2, done)
       times(100, () => {
-        client.histogram('query_time', 777, 0.9, ['app:web', 'feature:on'])
+        client.histogram('query_time', 777, {
+          sampleRate: 0.9,
+          tags: ['app:web', 'feature:on'],
+        })
       })
     })
   })
@@ -161,13 +186,18 @@ describe('DogStatsD', () => {
 
     it('should include the tags if provided', done => {
       serverShouldReceive('users.unique:1234|s|#app:web,feature:on', done)
-      client.set('users.unique', 1234, ['app:web', 'feature:on'])
+      client.set('users.unique', 1234, {
+        tags: ['app:web', 'feature:on'],
+      })
     })
 
     it('should include the sample rate and sample if provided', done => {
       serverShouldReceiveMultiple('users.unique:1234|s|@0.9|#app:web,feature:on', 2, done)
       times(100, () => {
-        client.set('users.unique', 1234, 0.9, ['app:web', 'feature:on'])
+        client.set('users.unique', 1234, {
+          sampleRate: 0.9,
+          tags: ['app:web', 'feature:on'],
+        })
       })
     })
   })

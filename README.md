@@ -25,6 +25,8 @@ See the [Datadog DogStatsD guide](http://docs.datadoghq.com/guides/dogstatsd/) f
 
 ### API
 
+Aside from the constructor and `sendEvent`, the `options` parameter is a hash that may include `tags` and `sampleRate`
+
 #### *constructor*`(host='localhost', port=8125, [socket], [options])`
 If a `socket` parameter is not provided a UDP socket is created and cleaned up as needed.
 
@@ -32,24 +34,23 @@ The last parameter is an optional `options` object, which may have the following
 
 - `globalTags`: an array of strings to be included as tags with every metric sent
 
-#### `increment(stat, [sampleRate], [tags])`
+#### `increment(stat, delta=1, [options])`
+If you're passing `options` you must also pass  `delta`
 
-#### `incrementBy(stat, delta, [sampleRate], [tags])`
+#### `decrement(stat, delta=1, [options])`
+`options` is a hash that may include `tags` and `sampleRate`
+If you're passing `options` you must also pass  `delta`
 
-#### `decrement(stat, [sampleRate], [tags])`
+#### `set(stat, value, [options])`
 
-#### `decrementBy(stat, delta, [sampleRate], [tags])`
+#### `gauge(stat, value, [options])`
 
-#### `set(stat, value, [sampleRate], [tags])`
+#### `timing(stat, value, [options])`
 
-#### `gauge(stat, value, [sampleRate], [tags])`
-
-#### `timing(stat, value, [sampleRate], [tags])`
-
-#### `createTimer(stat, [sampleRate], [tags])`
+#### `createTimer(stat, [options])`
 Returns an object with a `stop` method to call. Then calls `timing` under the hood with the measured change in time. Uses `process.hrtime` for high-resolution timing.
 
-#### `histogram(stat, value, [sampleRate], [tags])`
+#### `histogram(stat, value, [options])`
 
 #### `sendEvent(title, text, [options])`
 Options include:
