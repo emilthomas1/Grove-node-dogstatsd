@@ -1,7 +1,7 @@
 {
   "name": "@grove/dogstatsd",
   "description": "Client for interacting with a local Datadog StatsD agent over UDP",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "author": "Louis DeScioli <louis@grovelabs.io>",
   "repository": {
     "type": "git",
