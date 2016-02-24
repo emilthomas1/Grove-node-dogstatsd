@@ -1,41 +1,39 @@
-# node-dogstatsd
+# `@grove/dogstatsd`
 
-A node.js client for extended StatsD server of [Datadog](http://www.datadoghq.com).
+A Node.js module for interacting with a local [Datadog](http://www.datadoghq.com) StatsD agent over UDP.
 
-Datadog added new some features(histogram and tags) to their own StatsD implementation.
-This client is an extension of general StatsD client to work with that server.
+Datadog extends StatsD with additional features — histograms and tags. This client is an extension of a general StatsD client to work with their implementation.
 
-Most parts of codes came from [Steve Ivy](https://github.com/sivy)'s [node-statsd](https://github.com/sivy/node-statsd).
-I just added few lines to support datadog's histogram and tags features.
+## Installation
 
-The name of the package is changed because this isn't really statsd client and should be able to be used with original statsd client.
+```sh
+npm install @grove/dogstatsd
+```
 
-    % npm install node-dogstatsd
-    % node
-    > var StatsD = require('node-dogstatsd').StatsD
-    > c = new StatsD('example.org',8125)
-    { host: 'example.org', port: 8125 }
-    > c.increment('node_test.int')
-    > c.incrementBy('node_test.int', 7)
-    > c.decrement('node_test.int')
-    > c.decrementBy('node_test.int', 12)
-    > c.timing('node_test.some_service.task.time', 500) // time in millis
-    > c.histogram('node_test.some_service.data', 100) // works only with datadog' StatsD
-    > c.increment('node_test.int', 1, ['tag:one']) // works only with datadog' StatsD
+## Usage
+
+```js
+const DogStatsD = require('@grove/dogstatsd')
+const client = new DogStatsD('foobarbaz.com', 4242)
+// { host: 'foobarbaz.com', port: 4242 }
+client.increment('node_test.int')
+client.incrementBy('node_test.int', 7)
+client.decrement('node_test.int')
+client.decrementBy('node_test.int', 12)
+client.timing('node_test.some_service.task.time', 500) // time in millis
+client.histogram('node_test.some_service.data', 100) // works only with datadog' StatsD
+client.increment('node_test.int', 1, ['tag:one']) // works only with datadog' StatsD
+```
+
+### Error handling
+If no `socket` argument is given to the constructor, then a UDP socket is created as needed when sending data to the Datadog agent. We place a no-op function as the error handler to swallow any errors that may occur on the socket.
+
+If a `socket` argument is given, then it's up to the user to provide error handling mechanisms. A client's socket is accessible from the `client.socket` property.
+
+## Prior Art
+- [node-statsd](https://github.com/sivy/node-statsd)
+- [node-dogstatsd](https://github.com/joybro/node-dogstatsd)
 
 ## License
 
-node-statsd is licensed under the MIT license.
-
-## Error handling policy
-
-* exceptions "bubble up" into the app that uses this library
-* we don't log or print to console any errors ourself, it's the toplevel app that decides how to log/write to console.
-* we document which exceptions can be raised, and where. (TODO, https://github.com/sivy/node-statsd/issues/17)
-
-in your main app, you can leverage the fact that you have access to c.socket and do something like:
-(this is the best way I've found so far)
-
-    c.socket.on('error', function (exception) {
-       return console.log ("error event in socket.send(): " + exception);
-    });
+MIT

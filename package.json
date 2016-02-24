@@ -1,33 +1,24 @@
 {
-  "name": "node-dogstatsd",
-  "description": "node client for extended StatsD server of Datadog",
-  "version": "0.0.6",
-  "author": "Young Han Lee",
+  "name": "@grove/dogstatsd",
+  "description": "Client for interacting with a local Datadog StatsD agent over UDP",
+  "version": "0.1.0",
+  "author": "Louis DeScioli <louis@grovelabs.io>",
   "repository": {
     "type": "git",
-    "url": "git://github.com/joybro/node-dogstatsd.git"
+    "url": "git://github.com/grovelabs/node-dogstatsd.git"
   },
   "bugs": {
-    "url": "https://github.com/joybro/node-dogstatsd/issues"
+    "url": "https://github.com/grovelabs/node-dogstatsd/issues"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --recursive --require should"
+    "test": "mocha"
   },
-  "directories": {
-    "lib": "./lib/"
-  },
-  "main": "./lib/statsd",
+  "main": "./lib/dogstatsd.js",
   "engines": {
-    "node": ">=0.1.97"
+    "node": ">=4.0.0"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://github.com/joybro/node-dogstatsd/raw/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "devDependencies": {
-    "mocha": "^2.2.5",
-    "should": "^6.0.3"
+    "mocha": "^2.2.5"
   }
 }
