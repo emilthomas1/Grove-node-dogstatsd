@@ -172,4 +172,16 @@ describe('DogStatsD', () => {
     })
   })
 
+  describe('sendEvent', () => {
+    it('Should send the event with provided', done => {
+      const title = 'Things go bump'
+      const text = 'Sometimes in the night'
+      const now = Date.now()
+      serverShouldReceive(`_e{${title.length},${text.length}}:${title}|${text}|d:${now}|p:normal|t:info`, done)
+      client.sendEvent(title, text, {
+        dateHappened: now,
+      })
+    })
+  })
+
 })

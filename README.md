@@ -51,6 +51,16 @@ Returns an object with a `stop` method to call. Then calls `timing` under the ho
 
 #### `histogram(stat, value, [sampleRate], [tags])`
 
+#### `sendEvent(title, text, [options])`
+Options include:
+
+- `dateHappened=Date.now()`
+- `priority='normal'`
+- `type='info'`
+- `hostname`
+- `aggregationKey`
+- `sourceTypeName`
+- `tags`
 
 ### Error handling
 If no `socket` argument is given to the constructor, then a UDP socket is created as needed when sending data to the Datadog agent. We place a no-op function as the error handler to swallow any errors that may occur on the socket.
