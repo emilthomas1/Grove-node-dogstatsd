@@ -16,7 +16,6 @@ npm install @grove/dogstatsd
 const DogStatsD = require('@grove/dogstatsd')
 const metrics = new DogStatsD()
 metrics.increment('active_users')
-
 ```
 
 *Note:* If you want to use this library as a generic StatsD client it will work just fine. Just don't pass in `tags` parameters or use the `histogram` method.
@@ -26,8 +25,12 @@ See the [Datadog DogStatsD guide](http://docs.datadoghq.com/guides/dogstatsd/) f
 
 ### API
 
-#### *constructor*`(host = 'localhost', port=8125, [socket], options)`
+#### *constructor*`(host='localhost', port=8125, [socket], [options])`
 If a `socket` parameter is not provided a UDP socket is created and cleaned up as needed.
+
+The last parameter is an optional `options` object, which may have the following properties:
+
+- `globalTags`: an array of strings to be included as tags with every metric sent
 
 #### `increment(stat, [sampleRate], [tags])`
 

@@ -20,5 +20,12 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "^2.2.5"
-  }
+  },
+  "keywords": [
+    "statsd",
+    "datadog",
+    "stats",
+    "metrics",
+    "monitoring"
+  ]
 }
